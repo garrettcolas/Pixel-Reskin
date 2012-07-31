@@ -181,6 +181,7 @@ public class PixelReskinView extends FrameView {
         }
     }
     public void getAllColors() {
+        System.out.println("Find colors");
         ImageIcon oldTemp;
         BufferedImage old;
         int tempColor;
@@ -197,8 +198,14 @@ public class PixelReskinView extends FrameView {
                 tempColor = old.getRGB(x, y);
                 if (!checkForColor(tempColor)) {
                     colorList.add(tempColor);
+                    if(colorList.size() > 500) {
+                        break;
+                    }
                 }
                 y++;
+            }
+            if(colorList.size() > 500) {
+                  break;
             }
             y = 0;
             x++;
@@ -207,6 +214,7 @@ public class PixelReskinView extends FrameView {
         System.out.println("Found " + colorList.size() + " colors.");
 
         //Generate a pallete of the colors.
+        System.out.println("Generate a pallete image.");
         imageColorsBuff = new BufferedImage(colorList.size() * 15, 30, BufferedImage.TYPE_INT_ARGB);
         imageColors = new ImageIcon(toImage(imageColorsBuff));
         x = 0;
@@ -228,9 +236,10 @@ public class PixelReskinView extends FrameView {
         }
         imageColors = new ImageIcon(toImage(imageColorsBuff));
         colorsLabel.setIcon(imageColors);
-        
+        System.out.println("Finished getting all colors.");
     }
     public void editFiles() {
+        System.out.println("Edit Files");
         ImageIcon oldTemp;
         BufferedImage old;
 
@@ -307,7 +316,7 @@ public class PixelReskinView extends FrameView {
             }
             i++;
         }
-        
+        System.out.println("Edit Files Finished");
     }
     
     public boolean checkForColor(int color) {
@@ -320,6 +329,7 @@ public class PixelReskinView extends FrameView {
         }
         return false;
     }
+    
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {
